@@ -1,5 +1,5 @@
 <?php
-namespace colibri;
+namespace colibri\base;
 
 class User extends \yii\web\User
 {

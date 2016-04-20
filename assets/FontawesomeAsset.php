@@ -1,6 +1,6 @@
 <?php
 
-namespace colibri\assets;
+namespace colibri\base\assets;
 
 /**
  * FontawesomeAsset

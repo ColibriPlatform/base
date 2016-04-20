@@ -1,9 +1,9 @@
 <?php
 
-namespace colibri\controllers;
+namespace colibri\base\controllers;
 
 use Yii;
-use colibri\models\InstallForm;
+use colibri\base\models\InstallForm;
 
 class InstallController extends \yii\web\Controller
 {

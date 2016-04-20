@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 // use dee\adminlte\AdminlteAsset;
-use colibri\assets\AdminlteAsset;
+use colibri\base\assets\AdminlteAsset;
 use yii\widgets\Breadcrumbs;
 // use modules\admin\assets\AdminAsset;
 

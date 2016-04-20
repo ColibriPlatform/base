@@ -1,6 +1,6 @@
 <?php
 
-namespace colibri;
+namespace colibri\base;
 
 use Yii;
 use yii\base\Component;

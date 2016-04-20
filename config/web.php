@@ -9,7 +9,7 @@ $config = [
             'cookieValidationKey' => getenv('REQUEST_COOKIE_VALIDATION_KEY')? getenv('REQUEST_COOKIE_VALIDATION_KEY') : uniqid()
         ],
         'user' => [
-            'identityClass' => 'colibri\models\User',
+            'identityClass' => 'colibri\base\models\User',
             'enableAutoLogin' => true,
             'authTimeout' => 7200,
             'loginUrl' => ['default/login']

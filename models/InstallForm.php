@@ -1,5 +1,5 @@
 <?php
-namespace colibri\models;
+namespace colibri\base\models;
 
 use Yii;
 use yii\base\Model;

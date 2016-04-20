@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace colibri\assets;
+namespace colibri\base\assets;
 
 use yii\web\AssetBundle;
 

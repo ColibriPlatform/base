@@ -1,5 +1,5 @@
 <?php
-namespace colibri\controllers;
+namespace colibri\base\controllers;
 
 use Yii;
 use yii\web\Controller;

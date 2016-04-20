@@ -1,6 +1,6 @@
 <?php
 
-namespace colibri\models;
+namespace colibri\base\models;
 
 use Yii;
 

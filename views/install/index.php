@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\web\View;
-use colibri\assets\ColibriAsset;
+use colibri\base\assets\ColibriAsset;
 
 /* @var $this yii\web\View */
 /* @var $model colibri\models\InstallForm  */

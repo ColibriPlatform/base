@@ -1,6 +1,6 @@
 <?php
 
-namespace colibri\assets;
+namespace colibri\base\assets;
 
 /**
  * AdminLteAsset
@@ -22,7 +22,7 @@ class AdminlteAsset extends \yii\web\AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-        'colibri\assets\FontawesomeAsset',
+        'colibri\base\assets\FontawesomeAsset',
     ];
 
 }

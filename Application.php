@@ -1,5 +1,5 @@
 <?php
-namespace colibri;
+namespace colibri\base;
 
 /**
  * Application is the base class for all colibri application classes.
@@ -21,7 +21,7 @@ class Application extends \yii\web\Application
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'colibri\\controllers';
+    public $controllerNamespace = 'colibri\\base\\controllers';
 
     /**
      * @inheritdoc
@@ -43,8 +43,8 @@ class Application extends \yii\web\Application
     public function coreComponents()
     {
         return array_merge(parent::coreComponents(), [
-            'user' => ['class' => 'colibri\User'],
-            'settings' => ['class' => 'colibri\Settings']
+            'user' => ['class' => 'colibri\base\User'],
+            'settings' => ['class' => 'colibri\base\Settings']
         ]);
     }
 }
