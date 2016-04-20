@@ -1,0 +1,24 @@
+{
+    "name": "ilhooq/colibri-base",
+    "description": "The base for a modular application",
+    "keywords": ["yii2", "admin", "modular"],
+    "homepage": "http://colibri.sphilip.com/",
+    "type": "yii2-extension",
+    "license": "Gnu/GPL v3",
+    "support": {
+        "source": "https://github.com/ilhooq/colibri"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "m1/env": ">=2.0.0",
+        "yiisoft/yii2": ">=2.0.7"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "colibri\\base\\": ""
+        }
+    },
+
+}
