@@ -12,7 +12,9 @@
     "require": {
         "php": ">=5.4.0",
         "m1/env": ">=2.0.0",
-        "yiisoft/yii2": ">=2.0.7"
+        "yiisoft/yii2": ">=2.0.7",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*"
     },
 
     "autoload": {
@@ -20,5 +22,12 @@
             "colibri\\base\\": ""
         }
     },
+
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
 
 }
