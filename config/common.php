@@ -1,13 +1,13 @@
 <?php
 
-Yii::setAlias('@colibri', realpath(__DIR__ . '/..'));
+defined('APP_BASE_PATH') or die('APP_BASE_PATH constant must be defined.');
 
 $common = [
     'id' => 'colibri',
     'name' => getenv('APP_NAME') ? getenv('APP_NAME') : 'Colibri',
     'timeZone' => getenv('APP_TIMEZONE')? getenv('APP_TIMEZONE') : 'UTC',
     'language' => getenv('APP_LANGUAGE')? getenv('APP_LANGUAGE') : 'en-US',
-    'basePath' => realpath(__DIR__ . '/../../'),
+    'basePath' => APP_BASE_PATH,
     'viewPath' => realpath(__DIR__ . '/../views'),
     'bootstrap' => ['log'],
     'components' => [
