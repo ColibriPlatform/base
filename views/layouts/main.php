@@ -1,60 +1,73 @@
 <?php
 
-use yii\helpers\Html;
-// use dee\adminlte\AdminlteAsset;
-use colibri\base\assets\AdminlteAsset;
-use yii\widgets\Breadcrumbs;
-// use modules\admin\assets\AdminAsset;
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-AdminlteAsset::register($this);
-//$this->params['adminAssetBundle'] = AdminAsset::register($this);
+use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+use colibri\base\assets\AppAsset;
 
-$breadcrumbs = isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [];
+AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
-        <?php $this->head() ?>
-    </head>
-    <?php $this->beginBody() ?>
-    <body class="hold-transition skin-blue sidebar-mini">
-        <div class="wrapper">
-            <?= $this->render('header'); ?>
-            <?= $this->render('sidebar'); ?>
-            <div class="content-wrapper">
-                <section class="content-header">
-                    <h1><?= $this->title; ?></h1>
-                    <?=
-                    Breadcrumbs::widget([
-                        'tag' => 'ol',
-                        'encodeLabels' => false,
-                        'homeLink' => ['label' => '<i class="fa fa-dashboard"></i> Home/Dashboard', 'url' => ['/site/index']],
-                        'links' => $breadcrumbs,
-                    ])
-                    ?>
-                </section>
-                <section class="content">
-                    <?= $content ?>
-                </section>
-            </div>
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+</head>
+<body>
+<?php $this->beginBody() ?>
 
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    Version 2.0
-                </div>
-                <strong>Copyright &copy; 2015 <a href="#">Deesoft</a>.</strong> All rights reserved.
-            </footer>
-            <?= $this->render('control-sidebar'); ?>
-        </div>
-        <?php $this->endBody() ?>
-    </body>
+<div class="wrap">
+    <?php
+    NavBar::begin([
+        'brandLabel' => 'My Company',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+    ]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'encodeLabels' => false,
+        'items' => [
+            ['label' => 'Home', 'url' => ['/default/index']],
+            ['label' => 'Login', 'url' => ['/defaul/login'], 'visible' => Yii::$app->user->isGuest ],
+            ['label' => 'Logout', 'url' => ['/defaul/logout'], 'visible' => !Yii::$app->user->isGuest ],
+            '<li class="divider"></li>',
+            [
+                'label' => '<i class="glyphicon glyphicon-cog"></i>',
+                'url' => ['/backend'],
+                // 'visible' => \Yii::$app->user->can('backend_default_index', ['route' => true]),
+            ]
+        ],
+    ]);
+    NavBar::end();
+    ?>
+
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= $content ?>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+
+        <p class="pull-right"><?= Yii::powered() ?></p>
+    </div>
+</footer>
+
+<?php $this->endBody() ?>
+</body>
 </html>
 <?php $this->endPage() ?>
