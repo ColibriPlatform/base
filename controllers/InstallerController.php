@@ -5,7 +5,7 @@ namespace colibri\base\controllers;
 use Yii;
 use colibri\base\models\InstallForm;
 
-class InstallController extends \yii\web\Controller
+class InstallerController extends \yii\web\Controller
 {
     public function actionIndex()
     {

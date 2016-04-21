@@ -30,9 +30,9 @@ class Application extends \yii\web\Application
     {
         parent::bootstrap();
 
-        if (! $this->getDb()->dsn) {
-            if ($this->getRequest()->url != $this->getUrlManager()->createUrl(['install'])) {
-                $this->getResponse()->redirect(['install']);
+        if (!file_exists($this->basePath . '/.env')) {
+            if ($this->getRequest()->url != $this->getUrlManager()->createUrl(['installer'])) {
+                $this->getResponse()->redirect(['installer']);
             }
         }
     }
