@@ -71,9 +71,9 @@ if (YII_ENV_DEV) {
     ];
 }
 
-if (file_exists(getenv('APP_CONFIG_FILE'))) {
+if (getenv('APP_CONFIG_FILE') && file_exists(APP_BASE_PATH . '/' . getenv('APP_CONFIG_FILE'))) {
     // Local configuration, if available
-    $local = require getenv('APP_CONFIG_FILE');
+    $local = require APP_BASE_PATH . '/' . getenv('APP_CONFIG_FILE');
     $common = \yii\helpers\ArrayHelper::merge($common, $local);
 }
 
