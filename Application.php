@@ -28,13 +28,30 @@ class Application extends \yii\web\Application
      */
     protected function bootstrap()
     {
-        parent::bootstrap();
 
         if (!file_exists($this->basePath . '/.env')) {
             if ($this->getRequest()->url != $this->getUrlManager()->createUrl(['installer'])) {
                 $this->getResponse()->redirect(['installer']);
             }
         }
+
+        foreach ($this->modules as $id => $module) {
+            if (!in_array($id, $this->bootstrap)) {
+
+                if (is_array($module) && isset($module['class'])) {
+                    $className = $module['class'];
+                } elseif (is_string($module)) {
+                    $className = $module;
+                }
+
+                if (isset($className) && method_exists($className, 'bootstrap')) {
+                    $this->bootstrap[] = $id;
+                }
+            }
+        }
+
+        parent::bootstrap();
+
     }
 
     /**
