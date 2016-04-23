@@ -12,10 +12,7 @@
         "php": ">=5.4.0",
         "m1/env": ">=2.0.0",
         "yiisoft/yii2": ">=2.0.7",
-        "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-        "bower-asset/adminlte" : ">=2.3.3",
-        "bower-asset/fontawesome" : ">=4.6.0"
+        "yiisoft/yii2-bootstrap": "*"
     },
     "autoload": {
         "psr-4": {
