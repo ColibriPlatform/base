@@ -6,7 +6,7 @@ $common = [
     'id' => 'colibri',
     'name' => getenv('APP_NAME') ? getenv('APP_NAME') : 'Colibri',
     'timeZone' => getenv('APP_TIMEZONE')? getenv('APP_TIMEZONE') : 'UTC',
-    'language' => getenv('APP_LANGUAGE')? getenv('APP_LANGUAGE') : 'en-US',
+    'language' => getenv('APP_LANGUAGE')? getenv('APP_LANGUAGE') : 'en',
     'basePath' => APP_BASE_PATH,
     'viewPath' => realpath(__DIR__ . '/../views'),
     'bootstrap' => ['log'],
@@ -38,11 +38,15 @@ $common = [
         ],
 
         'i18n' => [
-            // Default category translation
             'translations' => [
+                // Default category translation
                 '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => dirname(__DIR__) . '/src/messages'
+                    APP_BASE_PATH . '/messages'
+                ],
+                'colibri' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => dirname(__DIR__) . '/messages'
                 ],
             ],
         ],
