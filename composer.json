@@ -17,10 +17,6 @@
         "bower-asset/adminlte" : ">=2.3.3",
         "bower-asset/fontawesome" : ">=4.6.0"
     },
-    "require-dev": {
-        "yiisoft/yii2-debug": "*",
-        "yiisoft/yii2-gii": "*"
-    },
     "autoload": {
         "psr-4": {
             "colibri\\base\\": ""

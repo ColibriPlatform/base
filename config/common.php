@@ -11,7 +11,6 @@ $common = [
     'viewPath' => realpath(__DIR__ . '/../views'),
     'bootstrap' => ['log'],
     'components' => [
-
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -47,29 +46,9 @@ $common = [
                 ],
             ],
         ],
-
     ],
-
     'modules' => [],
-
 ];
-
-
-if (YII_ENV_DEV) {
-    if (YII_DEBUG) {
-        $common['bootstrap'][] = 'debug';
-        $common['modules']['debug'] = [
-            'class' => 'yii\debug\Module',
-            'allowedIPs' => ['127.0.0.1', '192.168.*', '::1'],
-        ];
-    }
-
-    $common['bootstrap'][] = 'gii';
-    $common['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1', '192.168.*', '::1'],
-    ];
-}
 
 if (getenv('APP_CONFIG_FILE') && file_exists(APP_BASE_PATH . '/' . getenv('APP_CONFIG_FILE'))) {
     // Local configuration, if available
