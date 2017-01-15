@@ -12,7 +12,7 @@ $config = [
             'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
             'authTimeout' => 7200,
-            'loginUrl' => ['/user/security/login'],
+            'loginUrl' => ['user/security/login'],
             'returnUrl' => ['/'],
         ],
         'errorHandler' => [

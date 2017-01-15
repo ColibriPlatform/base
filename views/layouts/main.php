@@ -38,14 +38,16 @@ AppAsset::register($this);
         'encodeLabels' => false,
         'items' => [
             ['label' => 'Home', 'url' => ['/default/index']],
-            ['label' => 'Login', 'url' => ['/defaul/login'], 'visible' => Yii::$app->user->isGuest ],
-            ['label' => 'Logout', 'url' => ['/defaul/logout'], 'visible' => !Yii::$app->user->isGuest ],
+            ['label' => 'Login', 'url' => ['user/security/login'], 'visible' => Yii::$app->user->isGuest ],
+            ['label' => 'Logout', 'url' => ['user/security/logout'], 'visible' => !Yii::$app->user->isGuest, 'linkOptions' => ['data-method' => 'post']],
+            /*
             '<li class="divider"></li>',
             [
                 'label' => '<i class="glyphicon glyphicon-cog"></i>',
                 'url' => ['/backend'],
                 // 'visible' => \Yii::$app->user->can('backend_default_index', ['route' => true]),
             ]
+            */
         ],
     ]);
     NavBar::end();
