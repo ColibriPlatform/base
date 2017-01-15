@@ -30,7 +30,10 @@ class Application extends \yii\web\Application
     {
 
         if (!file_exists($this->basePath . '/.env')) {
-            if ($this->getRequest()->url != $this->getUrlManager()->createUrl(['installer'])) {
+            // Remove query part
+            $url = preg_replace('/\?.*$/', '', $this->getRequest()->url);
+
+            if ($url != $this->getUrlManager()->createUrl(['installer'])) {
                 $this->getResponse()->redirect(['installer']);
             }
         }
@@ -60,8 +63,8 @@ class Application extends \yii\web\Application
     public function coreComponents()
     {
         return array_merge(parent::coreComponents(), [
-            'user' => ['class' => 'colibri\base\User'],
-            'settings' => ['class' => 'colibri\base\Settings']
+            // 'user' => ['class' => 'colibri\base\User'],
+            //'settings' => ['class' => 'colibri\base\Settings']
         ]);
     }
 }

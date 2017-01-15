@@ -6,13 +6,14 @@ $config = [
     'components' => [
         'request' => [
             //  This is required by cookie validation
-            'cookieValidationKey' => getenv('REQUEST_COOKIE_VALIDATION_KEY')? getenv('REQUEST_COOKIE_VALIDATION_KEY') : uniqid()
+            'cookieValidationKey' => getenv('REQUEST_COOKIE_VALIDATION_KEY')? getenv('REQUEST_COOKIE_VALIDATION_KEY') : 'Xd3456dZRE'
         ],
         'user' => [
-            'identityClass' => 'colibri\base\models\User',
+            'identityClass' => 'dektrium\user\models\User',
             'enableAutoLogin' => true,
             'authTimeout' => 7200,
-            'loginUrl' => ['default/login']
+            'loginUrl' => ['/user/security/login'],
+            'returnUrl' => ['/'],
         ],
         'errorHandler' => [
             'errorAction' => 'default/error',

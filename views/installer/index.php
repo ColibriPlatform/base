@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\web\View;
-use colibri\base\assets\ColibriAsset;
+use yii\bootstrap\BootstrapAsset;
 
 /* @var $this yii\web\View */
-/* @var $model colibri\models\InstallForm  */
+/* @var $model colibri\base\models\InstallForm  */
 
-ColibriAsset::register($this);
+BootstrapAsset::register($this);
 
 $this->title = Yii::t('colibri', 'Install {appname}', ['appname' => Yii::$app->name]);
 
@@ -20,30 +20,35 @@ foreach ($tzArray as $v) {
 
 $script = <<<JS
 
-    $('#sqliteInfo').hide();
     $('#install-form')[0].reset();
 
-    $('#installform-dbtype').change(function(event) {
-        if (this.value == 'sqlite') {
-            $('#sqliteInfo').show();
-            $('#dbServerInfo').hide();
-        } else {
-            $('#sqliteInfo').hide();
-            $('#dbServerInfo').show();
-        }
-    });
-
-    $('#installform-dbname').bind('keyup change blur focus', function(event) {
-        if ($('#installform-dbtype').val() == 'sqlite') {
-            $('#sqliteName').text(this.value);
-        }
+    $('#installform-language').change(function(event) {
+        window.location.search =  '?lang=' + this.value;
     });
 JS;
 
 $css = <<<CSS
-.wrapper {
-    margin-top: 5% !important;
+hr {
+    border-color: #ccc;
 }
+
+#colibri-install {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    background: #ecf0f5;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.page-header {
+    margin-top: 0;
+    border-color: #ccc;
+}
+
+.page-header h1 {
+    font-size: 28px;
+}
+
+
 CSS;
 
 $this->registerJs($script);
@@ -55,7 +60,7 @@ $this->registerCss($css);
         'id' => 'install-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{error}</div>",
+            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{hint}\n{error}</div>",
             'labelOptions' => ['class' => 'col-lg-2 control-label'],
         ],
     ]); ?>
@@ -64,33 +69,36 @@ $this->registerCss($css);
         <h1 class="col-lg-10 col-lg-offset-2"><?= $this->title ?></h1>
     </div>
 
-    <?= $form->field($model, 'timeZone')->dropDownList($timezoneIdentifiers, ['prompt' => Yii::t('colibri', 'Choose')]) ?>
+    <?php if ($model->globalError): ?>
+    <p class="alert alert-danger">
+    <?= $model->globalError ?>
+    </p>
+    <?php endif ?>
+    
     <?= $form->field($model, 'language')->dropDownList(['en' =>'English', 'fr' => 'French']) ?>
-    <?= $form->field($model, 'dbType')->dropDownList(['mysql' => 'Mysql', 'pgsql' => 'PostgreSql', 'sqlite' =>'Sqlite']) ?>
-    <?= $form->field($model, 'dbName')->textInput() ?>
+    <?= $form->field($model, 'timeZone')->dropDownList($timezoneIdentifiers, ['prompt' => Yii::t('colibri', 'Choose')]) ?>
 
-    <div id="dbServerInfo">
+    <div class="form-group">
+        <h2 class="col-lg-10 col-lg-offset-2"><small> <?= Yii::t('colibri', 'Database configuration')?></small></h2>
+    </div>
+    <?= $form->field($model, 'dbType')->dropDownList(['mysql' => 'Mysql', 'pgsql' => 'PostgreSql']) ?>
     <?= $form->field($model, 'dbHost')->textInput() ?>
     <?= $form->field($model, 'dbUsername')->textInput() ?>
     <?= $form->field($model, 'dbPassword')->passwordInput() ?>
-    </div>
+    <?= $form->field($model, 'dbName')->textInput() ?>
+    <?= $form->field($model, 'dbTablePrefix')->textInput() ?>
 
-    <div class="form-group" id="sqliteInfo">
-        <div class="col-lg-offset-2 col-lg-10">
-           <?= Yii::t('colibri', 'Path')?> : <?= Yii::$app->getRuntimePath() ?>/<span id="sqliteName"></span>.sqlite
-        </div>
-    </div>
     <div class="form-group">
-        <h2 class="col-lg-10 col-lg-offset-2"><small> <?= Yii::t('migration', 'Administrator account')?></small></h2>
+        <h2 class="col-lg-10 col-lg-offset-2"><small> <?= Yii::t('colibri', 'Administrator account')?></small></h2>
     </div>
     <?= $form->field($model, 'email')->textInput() ?>
     <?= $form->field($model, 'login')->textInput() ?>
     <?= $form->field($model, 'password')->passwordInput() ?>
 
-
     <div class="form-group">
+        <hr />
         <div class="col-lg-offset-2 col-lg-10">
-            <?= Html::submitButton(Yii::t('migration', 'Process install'), ['class' => 'btn btn-primary', 'name' => 'install-button']) ?>
+            <?= Html::submitButton(Yii::t('colibri', 'Process install'), ['class' => 'btn btn-primary', 'name' => 'install-button']) ?>
         </div>
     </div>
 
