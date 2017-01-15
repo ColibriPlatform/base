@@ -3,6 +3,7 @@
 namespace colibri\base\controllers;
 
 use Yii;
+use yii\rbac\Role;
 use colibri\base\models\InstallForm;
 use colibri\base\events\InstallEvent;
 use colibri\base\components\Migration;
@@ -141,12 +142,22 @@ class InstallerController extends \yii\web\Controller
 
     protected function createAdminUser(InstallForm $model)
     {
-        $userModel = new \dektrium\user\models\User();
-        $userModel->scenario = 'create';
-        $userModel->email = $model->email;
-        $userModel->username = $model->login;
-        $userModel->password = $model->password;
-        $userModel->create();
+        $auth = Yii::$app->authManager;
+
+        $user = new \dektrium\user\models\User();
+
+        $user->scenario = 'create';
+        $user->email = $model->email;
+        $user->username = $model->login;
+        $user->password = $model->password;
+        $user->confirmed_at = time();
+        $user->save();
+
+        if (!$auth->getRole('admin')) {
+            $admin = new Role(['name' => 'admin', 'description' => Yii::t('colibri', 'Administrators')]);
+            $auth->add($admin);
+            $auth->assign($admin, $user->id);
+        }
     }
 
 }
