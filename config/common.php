@@ -51,34 +51,12 @@ $common = [
             ],
         ],
     ],
-    'modules' => [
-        'rbac' => [
-            'class' => 'dektrium\rbac\Module',
-        ],
-        'user' => [
-            'class' => 'dektrium\user\Module',
-            'cost' => 12,
-            'enableRegistration' => false,
-            'enableConfirmation' => false,
-            'enableUnconfirmedLogin' => false,
-            'adminPermission' => 'admin',
-            /*'urlRules' => [
-             '<id:\d+>'                               => 'profile/show',
-                '<action:(register|resend)>'             => 'registration/<action>',
-                'confirm/<id:\d+>/<code:[A-Za-z0-9_-]+>' => 'registration/confirm',
-                'recover/<id:\d+>/<code:[A-Za-z0-9_-]+>' => 'recovery/reset',
-                'settings/<action:\w+>'                  => 'settings/<action>'
-            ]*/
-            'mailer' => [
-                'sender'                => getenv('ADMIN_EMAIL'),
-            ],
-        ],
-    ],
+    'modules' => [],
 ];
 
-if (getenv('APP_CONFIG_FILE') && file_exists(APP_BASE_PATH . '/' . getenv('APP_CONFIG_FILE'))) {
+if (file_exists(APP_BASE_PATH . '/config/common.php')) {
     // Local configuration, if available
-    $local = require APP_BASE_PATH . '/' . getenv('APP_CONFIG_FILE');
+    $local = require APP_BASE_PATH . '/config/common.php';
     $common = \yii\helpers\ArrayHelper::merge($common, $local);
 }
 
