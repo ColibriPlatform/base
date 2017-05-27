@@ -11,11 +11,6 @@ $common = [
     'viewPath' => realpath(__DIR__ . '/../views'),
     'bootstrap' => ['log'],
     'components' => [
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableStrictParsing' => false,
-        ],
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => getenv('DB_DSN'),
@@ -25,14 +20,9 @@ $common = [
             'tablePrefix' => getenv('DB_TABLE_PREFIX'),
             'enableSchemaCache' => YII_ENV_PROD ? true : false,
         ],
-        'assetManager' => [
-            'linkAssets' => YII_ENV_DEV ? true : false,
-        ],
-
         /*'authManager' => [
          'class' => 'yii\rbac\DbManager',
-        ],*/
-
+         ],*/
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -54,10 +44,5 @@ $common = [
     'modules' => [],
 ];
 
-if (file_exists(APP_BASE_PATH . '/config/common.php')) {
-    // Local configuration, if available
-    $local = require APP_BASE_PATH . '/config/common.php';
-    $common = \yii\helpers\ArrayHelper::merge($common, $local);
-}
 
 return $common;

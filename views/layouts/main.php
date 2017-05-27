@@ -7,9 +7,37 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use colibri\base\assets\AppAsset;
 
-AppAsset::register($this);
+use yii\bootstrap\BootstrapAsset;
+
+BootstrapAsset::register($this);
+
+$css = <<<CSS
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+CSS;
+
+$this->registerCss($css);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

@@ -4,6 +4,14 @@ $common = require __DIR__ . '/common.php';
 
 $config = [
     'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+        ],
+        'assetManager' => [
+            'linkAssets' => YII_ENV_DEV ? true : false,
+        ],
         'request' => [
             //  This is required by cookie validation
             'cookieValidationKey' => getenv('REQUEST_COOKIE_VALIDATION_KEY')? getenv('REQUEST_COOKIE_VALIDATION_KEY') : 'Xd3456dZRE'
@@ -52,13 +60,6 @@ $config = [
         ],
     ]
 ];
-
-
-if (file_exists(APP_BASE_PATH . '/config/web.php')) {
-    // Local configuration, if available
-    $local = require APP_BASE_PATH . '/config/web.php';
-    $config = \yii\helpers\ArrayHelper::merge($config, $local);
-}
 
 
 return \yii\helpers\ArrayHelper::merge($common, $config);
