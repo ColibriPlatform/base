@@ -1,14 +1,10 @@
 <?php
 
-defined('APP_BASE_PATH') or die('APP_BASE_PATH constant must be defined.');
-
 $common = [
     'id' => 'colibri',
     'name' => getenv('APP_NAME') ? getenv('APP_NAME') : 'Colibri',
     'timeZone' => getenv('APP_TIMEZONE')? getenv('APP_TIMEZONE') : 'UTC',
     'language' => getenv('APP_LANGUAGE')? getenv('APP_LANGUAGE') : 'en',
-    'basePath' => APP_BASE_PATH,
-    'viewPath' => realpath(__DIR__ . '/../views'),
     'bootstrap' => ['log'],
     'components' => [
         'db' => [
@@ -32,7 +28,7 @@ $common = [
                 // Default category translation
                 '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    APP_BASE_PATH . '/messages'
+                    '@app/messages'
                 ],
                 'colibri' => [
                     'class' => 'yii\i18n\PhpMessageSource',
@@ -43,6 +39,5 @@ $common = [
     ],
     'modules' => [],
 ];
-
 
 return $common;

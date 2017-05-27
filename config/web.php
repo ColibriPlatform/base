@@ -3,6 +3,7 @@
 $common = require __DIR__ . '/common.php';
 
 $config = [
+    'defaultRoute' => 'default',
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -37,6 +38,7 @@ $config = [
         ],
     ],
     'modules' => [
+        'base' => 'colibri\base\Module',
         'rbac' => [
             'class' => 'dektrium\rbac\Module',
         ],
@@ -58,7 +60,8 @@ $config = [
                 'sender'                => getenv('ADMIN_EMAIL'),
             ],
         ],
-    ]
+    ],
+    'bootstrap' => ['base']
 ];
 
 

@@ -14,17 +14,17 @@ class InstallerController extends \yii\web\Controller
      * @event Event an event raised right before application installation.
      */
     const EVENT_BEFORE_INSTALL = 'beforeInstall';
-    
+
     /**
      * @event Event an event raised right after application installation.
      */
     const EVENT_AFTER_INSTALL = 'afterInstall';
-    
+
     /**
      * @event Event an event raised right before application update.
      */
     const EVENT_BEFORE_UPDATE = 'beforeUpdate';
-    
+
     /**
      * @event Event an event raised right after application update.
      */
@@ -45,7 +45,11 @@ class InstallerController extends \yii\web\Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $this->createEnvFile($model);
-            $this->loadEnv();
+
+            Yii::$app->language = $model->language;
+            Yii::$app->setTimeZone($model->timeZone);
+
+            // $this->loadEnv();
             $installMessages = $this->processMigrations();
             $this->createAdminUser($model);
 
@@ -53,7 +57,7 @@ class InstallerController extends \yii\web\Controller
             $event->model = $model->getAttributes();
             $this->trigger(self::EVENT_AFTER_INSTALL, $event);
             $installMessages .= "\n" . $event->message;
-        
+
             return $this->render('resume', [
                 'messages' => $installMessages
             ]);
@@ -109,25 +113,9 @@ class InstallerController extends \yii\web\Controller
             $buffer .= "DB_TABLE_PREFIX   = {$model->dbTablePrefix}\n";
 
             $buffer .= "REQUEST_COOKIE_VALIDATION_KEY  = {$cookieKey}\n";
-            $buffer .= "APP_CONFIG_FILE   = config.php\n";
 
             file_put_contents($envFile, $buffer);
         }
-    }
-
-    protected function loadEnv()
-    {
-        require Yii::getAlias('@vendor/ilhooq/colibri-base/config/env.php');
-
-        // Setup the db object
-        $db = Yii::$app->getDb();
-        $db->dsn = getenv('DB_DSN');
-        $db->username = getenv('DB_USER');
-        $db->password = getenv('DB_PASSWORD');
-        $db->tablePrefix = getenv('DB_TABLE_PREFIX');
-
-        Yii::$app->language = getenv('APP_LANGUAGE');
-        Yii::$app->setTimeZone(getenv('APP_TIMEZONE'));
     }
 
     protected function generateRandomString()
