@@ -1,12 +1,12 @@
 {
-    "name": "ilhooq/colibri-base",
-    "description": "The base for a modular application",
-    "keywords": ["yii2", "admin", "modular"],
-    "homepage": "http://colibri.sphilip.com/",
+    "name": "colibri/colibri-base",
+    "description": "The Yii2 base extension to build a modular application platform",
+    "keywords": ["yii2", "platform", "modular"],
+    "homepage": "https://github.com/ColibriPlatform/base",
     "type": "yii2-extension",
-    "license": "Gnu/GPL v3",
+    "license": "MIT",
     "support": {
-        "source": "https://github.com/ilhooq/colibri"
+        "source": "https://github.com/ColibriPlatform/base"
     },
     "require": {
         "php": ">=5.4.0",
@@ -19,8 +19,5 @@
         "psr-4": {
             "colibri\\base\\": ""
         }
-    },
-    "extra": {
-        "bootstrap": "colibri\\base\\Bootstrap"
     }
 }
