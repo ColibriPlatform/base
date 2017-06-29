@@ -126,7 +126,10 @@ class WebApplication extends \yii\web\Application
                         '@colibri/base/views' => '@app/views',
                     ],
                 ],
-            ]
+            ],
+            'settings' => [
+                'class' => 'pheme\settings\components\Settings'
+            ],
         ]);
     }
 }

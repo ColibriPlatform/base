@@ -79,6 +79,10 @@ class InstallController extends \yii\web\Controller
         $rbacMigration->up();
         $messages .= implode("\n", $rbacMigration->messages);
 
+        $settingsMigration = new Migration(Yii::getAlias('@pheme/settings/migrations'));
+        $settingsMigration->up();
+        $messages .= implode("\n", $settingsMigration->messages);
+
         return $messages;
     }
 
