@@ -1,5 +1,5 @@
 {
-    "name": "colibri/colibri-base",
+    "name": "colibri-platform/base",
     "description": "The Yii2 base extension to build a modular application platform",
     "keywords": ["yii2", "platform", "modular"],
     "homepage": "https://github.com/ColibriPlatform/base",
