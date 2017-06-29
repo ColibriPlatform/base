@@ -118,7 +118,15 @@ class WebApplication extends \yii\web\Application
             'cache' => [
                 'class' => 'yii\caching\FileCache',
             ],
-
+            'view' => [
+                'theme' => [
+                    'basePath' => '@app/views',
+                    'baseUrl' => '@web',
+                    'pathMap' => [
+                        '@colibri/base/views' => '@app/views',
+                    ],
+                ],
+            ]
         ]);
     }
 }
