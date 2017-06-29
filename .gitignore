@@ -2,8 +2,7 @@
 .buildpath
 .project
 .settings
-
-# composer vendor dir
-/vendor
+.externalToolBuilders
 
 composer.lock
+
