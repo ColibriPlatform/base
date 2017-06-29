@@ -8,7 +8,7 @@ use colibri\base\models\InstallForm;
 use colibri\base\events\InstallEvent;
 use colibri\base\components\Migration;
 
-class InstallerController extends \yii\web\Controller
+class InstallController extends \yii\web\Controller
 {
     /**
      * @event Event an event raised right before application installation.
