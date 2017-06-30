@@ -105,12 +105,12 @@ class Migration extends \yii\base\Component
         if ($result !== false) {
             $this->addMigrationHistory($class);
             $time = microtime(true) - $start;
-            $this->messages[] = "*** applied $class (time: " . sprintf("%.3f", $time) . "s)";
+            $this->messages[] = "*** applied $class (time: " . sprintf('%.3f', $time) . 's)';
 
             return true;
         } else {
             $time = microtime(true) - $start;
-            $this->messages[] = "*** failed to apply $class (time: " . sprintf("%.3f", $time) . "s)";
+            $this->messages[] = "*** failed to apply $class (time: " . sprintf('%.3f', $time) . 's)';
             return false;
         }
     }

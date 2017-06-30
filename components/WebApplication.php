@@ -77,7 +77,7 @@ class WebApplication extends \yii\web\Application
         if (!isset($this->i18n->translations['colibri'])) {
             $this->i18n->translations['colibri'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => dirname(__DIR__). '/messages'
+                'basePath' => dirname(__DIR__) . '/messages'
             ];
         }
 
