@@ -1,12 +1,23 @@
 <?php
+/**
+ * This file is part of Colibri platform
+ *
+ * @link https://github.com/ColibriPlatform
+ * @copyright   (C) 2017 PHILIP Sylvain. All rights reserved.
+ * @license     MIT; see LICENSE.md
+ */
 
 namespace colibri\base\components;
 
 use yii\helpers\ArrayHelper;
 
+/**
+ * Colibri Web application class.
+ *
+ * @author Sylvain PHILIP <contact@sphilip.com>
+ */
 class WebApplication extends \yii\web\Application
 {
-
     /**
      * @var string the default route of this application. Defaults to 'default'.
      */
@@ -20,13 +31,11 @@ class WebApplication extends \yii\web\Application
      */
     public function preInit(&$config)
     {
-        if (!isset($config['timeZone']) && getenv('APP_TIMEZONE'))
-        {
+        if (!isset($config['timeZone']) && getenv('APP_TIMEZONE')) {
             $config['timeZone'] = getenv('APP_TIMEZONE');
         }
 
-        if (!isset($config['language']) && getenv('APP_LANGUAGE'))
-        {
+        if (!isset($config['language']) && getenv('APP_LANGUAGE')) {
             $config['language'] = getenv('APP_LANGUAGE');
         }
 
@@ -49,13 +58,15 @@ class WebApplication extends \yii\web\Application
                 ],
             ];
         }
+
         $config['bootstrap'][] = 'log';
 
         parent::preInit($config);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
+     * @see \yii\web\Application::bootstrap()
      */
     protected function bootstrap()
     {
@@ -71,7 +82,6 @@ class WebApplication extends \yii\web\Application
         }
 
         if (!file_exists($this->basePath . '/.env')) {
-
             // Remove query part
             $url = preg_replace('/\?.*$/', '', $this->getRequest()->url);
 
@@ -81,6 +91,10 @@ class WebApplication extends \yii\web\Application
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \yii\web\Application::coreComponents()
+     */
     public function coreComponents()
     {
         return ArrayHelper::merge(parent::coreComponents(), [
@@ -94,7 +108,8 @@ class WebApplication extends \yii\web\Application
             ],
             'request' => [
                 //  This is required by cookie validation
-                'cookieValidationKey' => getenv('REQUEST_COOKIE_VALIDATION_KEY')? getenv('REQUEST_COOKIE_VALIDATION_KEY') : 'Xd3456dZRE'
+                'cookieValidationKey' => getenv('REQUEST_COOKIE_VALIDATION_KEY')?
+                                         getenv('REQUEST_COOKIE_VALIDATION_KEY') : 'Xd3456dZRE'
             ],
             'user' => [
                 'identityClass' => 'dektrium\user\models\User',

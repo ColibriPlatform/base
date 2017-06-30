@@ -1,12 +1,21 @@
 <?php
+/**
+ * This file is part of Colibri platform
+ *
+ * @link https://github.com/ColibriPlatform
+ * @copyright   (C) 2017 PHILIP Sylvain. All rights reserved.
+ * @license     MIT; see LICENSE.md
+ */
+
 namespace colibri\base\models;
 
 use Yii;
 use yii\base\Model;
 
-
 /**
  * InstallForm is the model behind the install form.
+ *
+ * @author Sylvain PHILIP <contact@sphilip.com>
  */
 class InstallForm extends Model
 {
@@ -37,8 +46,8 @@ class InstallForm extends Model
 
 
     /**
-     *
-     * @return array the validation rules.
+     * {@inheritDoc}
+     * @see \yii\base\Model::rules()
      */
     public function rules()
     {
@@ -58,9 +67,9 @@ class InstallForm extends Model
         ];
     }
 
-
     /**
-     * @inheritdoc
+     * {@inheritDoc}
+     * @see \yii\base\Model::attributeLabels()
      */
     public function attributeLabels()
     {
@@ -80,7 +89,8 @@ class InstallForm extends Model
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
+     * @see \yii\base\Model::attributeHints()
      */
     public function attributeHints()
     {
@@ -90,6 +100,10 @@ class InstallForm extends Model
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \yii\base\Model::beforeValidate()
+     */
     public function beforeValidate()
     {
         if (!parent::beforeValidate()) {

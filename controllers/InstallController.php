@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is part of Colibri platform
+ *
+ * @link https://github.com/ColibriPlatform
+ * @copyright   (C) 2017 PHILIP Sylvain. All rights reserved.
+ * @license     MIT; see LICENSE.md
+ */
 
 namespace colibri\base\controllers;
 
@@ -8,6 +15,11 @@ use colibri\base\models\InstallForm;
 use colibri\base\events\InstallEvent;
 use colibri\base\components\Migration;
 
+/**
+ * Install controller class.
+ *
+ * @author Sylvain PHILIP <contact@sphilip.com>
+ */
 class InstallController extends \yii\web\Controller
 {
     /**
@@ -31,7 +43,14 @@ class InstallController extends \yii\web\Controller
     const EVENT_AFTER_UPDATE = 'afterUpdate';
 
 
-    public function actionIndex($lang='')
+    /**
+     * Display the install form
+     *
+     * @param string $lang The lang to use
+     *
+     * @return string
+     */
+    public function actionIndex($lang = '')
     {
         $this->layout = 'minimal';
 
@@ -43,7 +62,6 @@ class InstallController extends \yii\web\Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
             $this->createEnvFile($model);
 
             Yii::$app->language = $model->language;
@@ -68,6 +86,11 @@ class InstallController extends \yii\web\Controller
         ]);
     }
 
+    /**
+     * Process required migrations
+     *
+     * @return string
+     */
     protected function processMigrations()
     {
         $messages = '';
@@ -87,14 +110,17 @@ class InstallController extends \yii\web\Controller
     }
 
     /**
+     * Create the application env file
+     *
      * @param InstallForm $model
+     *
+     * @return void
      */
     protected function createEnvFile(InstallForm $model)
     {
         $envFile = Yii::getAlias('@app/.env');
 
-        if (!file_exists($envFile) ) {
-
+        if (!file_exists($envFile)) {
             $dsn = '';
             $buffer = "\n";
             $cookieKey = $this->generateRandomString();
@@ -122,6 +148,13 @@ class InstallController extends \yii\web\Controller
         }
     }
 
+    /**
+     * Generate a random string
+     *
+     * @throws \Exception
+     *
+     * @return string
+     */
     protected function generateRandomString()
     {
         if (!extension_loaded('openssl')) {
@@ -132,6 +165,13 @@ class InstallController extends \yii\web\Controller
         return strtr(substr(base64_encode($bytes), 0, $length), '+/=', '_-.');
     }
 
+    /**
+     * Create the application admin user
+     *
+     * @param InstallForm $model
+     *
+     * @return void
+     */
     protected function createAdminUser(InstallForm $model)
     {
         $auth = Yii::$app->authManager;
@@ -151,5 +191,4 @@ class InstallController extends \yii\web\Controller
             $auth->assign($admin, $user->id);
         }
     }
-
 }

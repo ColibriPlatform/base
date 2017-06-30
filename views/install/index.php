@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is part of Colibri platform
+ *
+ * @link https://github.com/ColibriPlatform
+ * @copyright   (C) 2017 PHILIP Sylvain. All rights reserved.
+ * @license     MIT; see LICENSE.md
+ */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -55,25 +62,25 @@ $this->registerCss($css);
 ?>
 <div id="colibri-install" class="container">
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'install-form',
-        'options' => ['class' => 'form-horizontal'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{hint}\n{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2 control-label'],
-        ],
-    ]); ?>
+<?php $form = ActiveForm::begin([
+    'id' => 'install-form',
+    'options' => ['class' => 'form-horizontal'],
+    'fieldConfig' => [
+        'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{hint}\n{error}</div>",
+        'labelOptions' => ['class' => 'col-lg-2 control-label'],
+    ],
+]); ?>
 
     <div class="form-group page-header">
         <h1 class="col-lg-10 col-lg-offset-2"><?= $this->title ?></h1>
     </div>
 
-    <?php if ($model->globalError): ?>
+    <?php if ($model->globalError) : ?>
     <p class="alert alert-danger">
     <?= $model->globalError ?>
     </p>
     <?php endif ?>
-    
+
     <?= $form->field($model, 'language')->dropDownList(['en' =>'English', 'fr' => 'French']) ?>
     <?= $form->field($model, 'timeZone')->dropDownList($timezoneIdentifiers, ['prompt' => Yii::t('colibri', 'Choose')]) ?>
 
@@ -102,7 +109,6 @@ $this->registerCss($css);
     </div>
 
     <?php ActiveForm::end(); ?>
-
 
 </div>
 

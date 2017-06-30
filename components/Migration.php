@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is part of Colibri platform
+ *
+ * @link https://github.com/ColibriPlatform
+ * @copyright   (C) 2017 PHILIP Sylvain. All rights reserved.
+ * @license     MIT; see LICENSE.md
+ */
 
 namespace colibri\base\components;
 
@@ -8,7 +15,7 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 /**
- * Manages application migrations.
+ * Application migrations class which doesn't depend to CLI SAPI.
  *
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -41,7 +48,7 @@ class Migration extends \yii\base\Component
 
     public $messages = [];
 
-    public function __construct($migrationPath='')
+    public function __construct($migrationPath = '')
     {
         if (!empty($migrationPath)) {
             $this->migrationPath = $migrationPath;
@@ -52,7 +59,6 @@ class Migration extends \yii\base\Component
 
     /**
      * Upgrades the application by applying new migrations.
-     *
      *
      * @return integer the status of the action execution. 0 means normal, other values mean abnormal.
      */
@@ -76,6 +82,7 @@ class Migration extends \yii\base\Component
 
     /**
      * Upgrades with the specified migration class.
+     *
      * @param string $class the migration class name
      * @return boolean whether the migration is successful
      */
@@ -85,7 +92,7 @@ class Migration extends \yii\base\Component
             return true;
         }
         $this->messages[] = "*** applying $class";
-    
+
         $start = microtime(true);
         $migration = $this->createMigration($class);
         ob_start();
@@ -99,7 +106,7 @@ class Migration extends \yii\base\Component
             $this->addMigrationHistory($class);
             $time = microtime(true) - $start;
             $this->messages[] = "*** applied $class (time: " . sprintf("%.3f", $time) . "s)";
-    
+
             return true;
         } else {
             $time = microtime(true) - $start;
@@ -111,35 +118,43 @@ class Migration extends \yii\base\Component
 
     /**
      * Returns the migrations that are not applied.
+     *
      * @return array list of new migrations
      */
     protected function getNewMigrations()
     {
         $applied = [];
+
         foreach ($this->getMigrationHistory(null) as $version => $time) {
             $applied[substr($version, 1, 13)] = true;
         }
-    
+
         $migrations = [];
         $handle = opendir($this->migrationPath);
+
         while (($file = readdir($handle)) !== false) {
             if ($file === '.' || $file === '..') {
                 continue;
             }
+
             $path = $this->migrationPath . DIRECTORY_SEPARATOR . $file;
-            if (preg_match('/^(m(\d{6}_\d{6})_.*?)\.php$/', $file, $matches) && !isset($applied[$matches[2]]) && is_file($path)) {
+
+            if (preg_match('/^(m(\d{6}_\d{6})_.*?)\.php$/', $file, $matches)
+                && !isset($applied[$matches[2]]) && is_file($path)) {
                 $migrations[] = $matches[1];
             }
         }
+
         closedir($handle);
         sort($migrations);
-    
+
         return $migrations;
     }
 
 
     /**
      * Creates a new migration instance.
+     *
      * @param string $class the migration class name
      * @return \yii\db\Migration the migration instance
      */
@@ -151,6 +166,7 @@ class Migration extends \yii\base\Component
 
     /**
      * Returns the migration history.
+     *
      * @param integer $limit the maximum number of records in the history to be returned. `null` for "no limit".
      * @return array the migration history
      */
@@ -191,6 +207,7 @@ class Migration extends \yii\base\Component
 
     /**
      * Adds new migration entry to the history.
+     *
      * @param string $version migration version name.
      */
     protected function addMigrationHistory($version)
@@ -204,6 +221,7 @@ class Migration extends \yii\base\Component
 
     /**
      * Removes existing migration from the history.
+     *
      * @param string $version migration version name.
      */
     protected function removeMigrationHistory($version)

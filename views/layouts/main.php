@@ -1,4 +1,11 @@
 <?php
+/**
+ * This file is part of Colibri platform
+ *
+ * @link https://github.com/ColibriPlatform
+ * @copyright   (C) 2017 PHILIP Sylvain. All rights reserved.
+ * @license     MIT; see LICENSE.md
+ */
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -67,7 +74,8 @@ $this->registerCss($css);
         'items' => [
             ['label' => 'Home', 'url' => ['/default/index']],
             ['label' => 'Login', 'url' => ['user/security/login'], 'visible' => Yii::$app->user->isGuest ],
-            ['label' => 'Logout', 'url' => ['user/security/logout'], 'visible' => !Yii::$app->user->isGuest, 'linkOptions' => ['data-method' => 'post']],
+            ['label' => 'Logout', 'url' => ['user/security/logout'], 'visible' => !Yii::$app->user->isGuest,
+                        'linkOptions' => ['data-method' => 'post']],
             /*
             '<li class="divider"></li>',
             [

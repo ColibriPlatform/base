@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Email' => 'Email',
     'Login' => 'Login',
@@ -21,5 +22,4 @@ return [
     'Database configuration' => 'Database configuration',
     'Database configuration' => 'Administrator account',
     'Process install' => 'Process install',
-
 ];

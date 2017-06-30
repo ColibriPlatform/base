@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Email' => 'Email',
     'Login' => 'Nom d\'utilisateur',
@@ -21,5 +22,4 @@ return [
     'Database configuration' => 'Configuration de la base de données',
     'Administrator account' => 'Compte administrateur',
     'Process install' => 'Procéder à l\'installation',
-
 ];
