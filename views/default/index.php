@@ -8,4 +8,25 @@
  */
 ?>
 
-<h1>Colibri</h1>
+<h1>Home</h1>
+
+<p>This is the default homepage. You can override it if you enable theming in your application configuration.</p>
+
+<pre>
+return [
+    'components' => [
+        'view' => [
+            'basePath' => '@app/themes/yourtheme',
+            'baseUrl' => '@web/themes/yourtheme',
+            'pathMap' => [
+                '@colibri/base/views' => '@app/themes/yourtheme',
+             ],
+        ],
+    ],
+];
+</pre>
+
+<p>
+See <a href="http://www.yiiframework.com/doc-2.0/guide-output-theming.html">Theming guide</a>
+to have more information about theming.
+</p>
