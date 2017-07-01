@@ -134,7 +134,7 @@ class WebApplication extends \yii\web\Application
                 'class' => 'yii\caching\FileCache',
             ],
             'settings' => [
-                'class' => 'pheme\settings\components\Settings'
+                'class' => 'colibri\base\components\Settings'
             ],
         ]);
     }
