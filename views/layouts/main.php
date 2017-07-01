@@ -14,9 +14,10 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-
+use yii\web\YiiAsset;
 use yii\bootstrap\BootstrapAsset;
 
+YiiAsset::register($this);
 BootstrapAsset::register($this);
 
 $css = <<<CSS
@@ -73,17 +74,9 @@ $this->registerCss($css);
         'encodeLabels' => false,
         'items' => [
             ['label' => 'Home', 'url' => ['/default/index']],
-            ['label' => 'Login', 'url' => ['user/security/login'], 'visible' => Yii::$app->user->isGuest ],
-            ['label' => 'Logout', 'url' => ['user/security/logout'], 'visible' => !Yii::$app->user->isGuest,
+            ['label' => 'Login', 'url' => ['/user/security/login'], 'visible' => Yii::$app->user->isGuest ],
+            ['label' => 'Logout', 'url' => ['/user/security/logout'], 'visible' => !Yii::$app->user->isGuest,
                         'linkOptions' => ['data-method' => 'post']],
-            /*
-            '<li class="divider"></li>',
-            [
-                'label' => '<i class="glyphicon glyphicon-cog"></i>',
-                'url' => ['/backend'],
-                // 'visible' => \Yii::$app->user->can('backend_default_index', ['route' => true]),
-            ]
-            */
         ],
     ]);
     NavBar::end();
@@ -101,7 +94,7 @@ $this->registerCss($css);
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"><?= Yii::powered() ?> - <a href="https://github.com/ColibriPlatform">Colibri platform</a></p>
     </div>
 </footer>
 
