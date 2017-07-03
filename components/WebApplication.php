@@ -81,6 +81,14 @@ class WebApplication extends \yii\web\Application
             ];
         }
 
+        // Look in @app/messages directory for all categories
+        if (!isset($this->i18n->translations['*'])) {
+            $this->i18n->translations['*'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@app/messages'
+            ];
+        }
+
         if (!file_exists($this->basePath . '/.env')) {
             // Remove query part
             $url = preg_replace('/\?.*$/', '', $this->getRequest()->url);
