@@ -29,7 +29,7 @@ use colibri\base\components\WebApplication;
 require(__DIR__ . '/vendor/autoload.php');
 
 if (!is_dir(__DIR__ . '/assets')) {
-	mkdir(__DIR__ . '/assets');
+    mkdir(__DIR__ . '/assets');
 }
 
 Env::Load(__DIR__ . '/.env');
