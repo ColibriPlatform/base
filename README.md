@@ -48,3 +48,11 @@ $config = [
 (new WebApplication($config))->run();
 
 ```
+
+Then start the local php web server to run the application :
+
+```bash
+php -S localhost:8080
+```
+
+Finally go to http://127.0.0.1:8080/ in your browser and follow instruction to finish installation.
