@@ -98,6 +98,15 @@ class WebApplication extends \yii\web\Application
     public function coreComponents()
     {
         return ArrayHelper::merge(parent::coreComponents(), [
+            'db' => [
+                'class' => 'yii\db\Connection',
+                'dsn' => getenv('DB_DSN'),
+                'username' => getenv('DB_USER'),
+                'password' => getenv('DB_PASSWORD'),
+                'charset' => 'utf8',
+                'tablePrefix' => getenv('DB_TABLE_PREFIX'),
+                'enableSchemaCache' => YII_ENV_PROD ? true : false,
+            ],
             'urlManager' => [
                 'enablePrettyUrl' => true,
                 'showScriptName' => false,
