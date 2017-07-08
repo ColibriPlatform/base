@@ -72,12 +72,12 @@ class WebApplication extends \yii\web\Application
     {
         parent::bootstrap();
 
-        $this->viewPath = dirname(__DIR__) . '/views';
+        $this->viewPath = __DIR__ . '/views';
 
         if (!isset($this->i18n->translations['colibri'])) {
             $this->i18n->translations['colibri'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => dirname(__DIR__) . '/messages'
+                'basePath' => __DIR__ . '/messages'
             ];
         }
 
