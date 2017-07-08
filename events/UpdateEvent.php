@@ -7,7 +7,7 @@
  * @license     MIT; see LICENSE.md
  */
 
-namespace modules\migration\events;
+namespace colibri\base\events;
 
 use yii\base\Event;
 

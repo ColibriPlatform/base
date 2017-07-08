@@ -13,7 +13,7 @@ use Yii;
 use yii\rbac\Role;
 use colibri\base\models\InstallForm;
 use colibri\base\events\InstallEvent;
-use colibri\base\components\Migration;
+use colibri\base\Migration;
 
 /**
  * Install controller class.
@@ -67,7 +67,6 @@ class InstallController extends \yii\web\Controller
             Yii::$app->language = $model->language;
             Yii::$app->setTimeZone($model->timeZone);
 
-            // $this->loadEnv();
             $installMessages = $this->processMigrations();
             $this->createAdminUser($model);
 
