@@ -23,16 +23,13 @@ composer require colibri-platform/base
 This exemple start a Colibri application in your index.php
 
 ```php
-use colibri\base\components\Env;
-use colibri\base\components\WebApplication;
-
 require(__DIR__ . '/vendor/autoload.php');
 
 if (!is_dir(__DIR__ . '/assets')) {
     mkdir(__DIR__ . '/assets');
 }
 
-Env::Load(__DIR__ . '/.env');
+\colibri\base\Env::load(__DIR__ . '/.env');
 
 defined('YII_DEBUG') or define('YII_DEBUG', (boolean) getenv('YII_DEBUG'));
 defined('YII_ENV') or define('YII_ENV', getenv('YII_ENV')? getenv('YII_ENV') : 'prod');
@@ -45,7 +42,7 @@ $config = [
     'basePath' => __DIR__
 ];
 
-(new WebApplication($config))->run();
+(new \colibri\base\WebApplication($config))->run();
 
 ```
 
