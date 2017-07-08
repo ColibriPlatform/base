@@ -7,7 +7,7 @@
  * @license     MIT; see LICENSE.md
  */
 
-namespace colibri\base\components;
+namespace colibri\base;
 
 use Yii;
 use yii\db\Connection;
@@ -16,7 +16,6 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Application migrations class which doesn't depend to CLI SAPI.
- *
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Sylvain Philip <contact@sphilip.com>

@@ -7,7 +7,7 @@
  * @license     MIT; see LICENSE.md
  */
 
-namespace colibri\base\components;
+namespace colibri\base;
 
 /**
  * Colibri Environment class.

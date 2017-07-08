@@ -7,7 +7,7 @@
  * @license     MIT; see LICENSE.md
  */
 
-namespace colibri\base\components;
+namespace colibri\base;
 
 use yii\helpers\ArrayHelper;
 
@@ -151,7 +151,7 @@ class WebApplication extends \yii\web\Application
                 'class' => 'yii\caching\FileCache',
             ],
             'settings' => [
-                'class' => 'colibri\base\components\Settings'
+                'class' => 'colibri\base\Settings'
             ],
         ]);
     }

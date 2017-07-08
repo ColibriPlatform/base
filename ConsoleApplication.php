@@ -7,7 +7,7 @@
  * @license     MIT; see LICENSE.md
  */
 
-namespace colibri\base\components;
+namespace colibri\base;
 
 use yii\helpers\ArrayHelper;
 
@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
  *
  * @author Sylvain PHILIP <contact@sphilip.com>
  */
-class CliApplication extends \yii\console\Application
+class ConsoleApplication extends \yii\console\Application
 {
     /**
      * {@inheritDoc}
