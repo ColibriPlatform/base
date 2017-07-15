@@ -18,6 +18,13 @@ use yii\base\Event;
  */
 class InstallEvent extends Event
 {
+    /**
+     * @var array InstallForm model attributes
+     */
     public $model = [];
-    public $message;
+
+    /**
+     * @var string Event message to return
+     */
+    public $message = '';
 }
