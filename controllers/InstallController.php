@@ -11,9 +11,8 @@ namespace colibri\base\controllers;
 
 use Yii;
 use yii\rbac\Role;
-use colibri\base\models\InstallForm;
-use colibri\base\events\InstallEvent;
 use colibri\base\Migration;
+use colibri\base\models\InstallForm;
 
 /**
  * Install controller class.
@@ -22,27 +21,6 @@ use colibri\base\Migration;
  */
 class InstallController extends \yii\web\Controller
 {
-    /**
-     * @event Event an event raised right before application installation.
-     */
-    const EVENT_BEFORE_INSTALL = 'beforeInstall';
-
-    /**
-     * @event Event an event raised right after application installation.
-     */
-    const EVENT_AFTER_INSTALL = 'afterInstall';
-
-    /**
-     * @event Event an event raised right before application update.
-     */
-    const EVENT_BEFORE_UPDATE = 'beforeUpdate';
-
-    /**
-     * @event Event an event raised right after application update.
-     */
-    const EVENT_AFTER_UPDATE = 'afterUpdate';
-
-
     /**
      * Display the install form
      *
@@ -62,6 +40,7 @@ class InstallController extends \yii\web\Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
             $this->createEnvFile($model);
 
             Yii::$app->language = $model->language;
@@ -70,10 +49,21 @@ class InstallController extends \yii\web\Controller
             $installMessages = $this->processMigrations();
             $this->initRbac($model);
 
-            $event = new InstallEvent();
-            $event->model = $model->getAttributes();
-            $this->trigger(self::EVENT_AFTER_INSTALL, $event);
-            $installMessages .= "\n" . $event->message;
+            $modules = Yii::$app->getModules();
+            $params = $model->getAttributes();
+
+            foreach ($modules as $moduleName => $module)
+            {
+                if (is_array($module))
+                {
+                    $module = Yii::$app->getModule($moduleName);
+                }
+
+                if (method_exists($module, 'migrateUp'))
+                {
+                    $installMessages .= $module->migrateUp($params);
+                }
+            }
 
             return $this->render('resume', [
                 'messages' => $installMessages
@@ -93,17 +83,19 @@ class InstallController extends \yii\web\Controller
     protected function processMigrations()
     {
         $messages = '';
-        $userMigration = new Migration(Yii::getAlias('@vendor/dektrium/yii2-user/migrations'));
-        $userMigration->up();
-        $messages .= implode("\n", $userMigration->messages);
 
-        $rbacMigration = new Migration(Yii::getAlias('@yii/rbac/migrations'));
-        $rbacMigration->up();
-        $messages .= implode("\n", $rbacMigration->messages);
+        $migrationsPaths = [
+            '@vendor/dektrium/yii2-user/migrations',
+            '@yii/rbac/migrations',
+            '@pheme/settings/migrations',
+        ];
 
-        $settingsMigration = new Migration(Yii::getAlias('@pheme/settings/migrations'));
-        $settingsMigration->up();
-        $messages .= implode("\n", $settingsMigration->messages);
+        foreach ($migrationsPaths as $path)
+        {
+            $migration = new Migration(Yii::getAlias($path));
+            $migration->up();
+            $messages .= implode("\n", $migration->messages);
+        }
 
         return $messages;
     }
@@ -120,6 +112,7 @@ class InstallController extends \yii\web\Controller
         $envFile = Yii::getAlias('@app/.env');
 
         if (!file_exists($envFile)) {
+
             $dsn = '';
             $buffer = "\n";
             $cookieKey = $this->generateRandomString();
@@ -159,8 +152,10 @@ class InstallController extends \yii\web\Controller
         if (!extension_loaded('openssl')) {
             throw new \Exception('The OpenSSL PHP extension is required.');
         }
+
         $length = 32;
         $bytes = openssl_random_pseudo_bytes($length);
+
         return strtr(substr(base64_encode($bytes), 0, $length), '+/=', '_-.');
     }
 
@@ -176,15 +171,21 @@ class InstallController extends \yii\web\Controller
         $auth = Yii::$app->authManager;
 
         $rule = new \colibri\base\rbac\RegisteredRule();
-        $auth->add($rule);
 
-        // Create the default assigned automatically to every registered users
-        $registered = new Role([
-            'name' => 'registered',
-            'ruleName' => $rule->name,
-            'description' => Yii::t('colibri', 'Default role for registered users')]);
+        if (!$auth->getRule($rule->name)) {
+            $auth->add($rule);
+        }
 
-        $auth->add($registered);
+        // Create the registered role
+        if (!$auth->getRole('registered')) {
+
+            $registered = new Role([
+                'name' => 'registered',
+                'ruleName' => $rule->name,
+                'description' => Yii::t('colibri', 'Default role for registered users')
+            ]);
+            $auth->add($registered);
+        }
 
         // Create the application admin user
         $user = new \dektrium\user\models\User();
