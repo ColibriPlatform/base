@@ -68,7 +68,7 @@ class InstallController extends \yii\web\Controller
             Yii::$app->setTimeZone($model->timeZone);
 
             $installMessages = $this->processMigrations();
-            $this->createAdminUser($model);
+            $this->initRbac($model);
 
             $event = new InstallEvent();
             $event->model = $model->getAttributes();
@@ -165,16 +165,22 @@ class InstallController extends \yii\web\Controller
     }
 
     /**
-     * Create the application admin user
+     * Init Rbac
      *
      * @param InstallForm $model
      *
      * @return void
      */
-    protected function createAdminUser(InstallForm $model)
+    protected function initRbac(InstallForm $model)
     {
         $auth = Yii::$app->authManager;
 
+        // Create the default assigned automatically to every registered users
+        $registered = new Role(['name' => 'registered', 'description' => Yii::t('colibri', 'Default role for registered users')]);
+        $auth->add($registered);
+
+
+        // Create the application admin user
         $user = new \dektrium\user\models\User();
 
         $user->scenario = 'create';
@@ -187,6 +193,7 @@ class InstallController extends \yii\web\Controller
         if (!$auth->getRole('admin')) {
             $admin = new Role(['name' => 'admin', 'description' => Yii::t('colibri', 'Administrators')]);
             $auth->add($admin);
+            $auth->addChild($admin, $registered);
             $auth->assign($admin, $user->id);
         }
     }

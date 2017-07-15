@@ -153,6 +153,10 @@ class WebApplication extends \yii\web\Application
             'settings' => [
                 'class' => 'colibri\base\Settings'
             ],
+            'authManager' => [
+                'class' => 'dektrium\rbac\components\DbManager',
+                'defaultRoles' => ['registered'],
+            ],
         ]);
     }
 }
