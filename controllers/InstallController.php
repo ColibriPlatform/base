@@ -30,8 +30,6 @@ class InstallController extends \yii\web\Controller
      */
     public function actionIndex($lang = '')
     {
-        $this->layout = 'minimal';
-
         $model = new InstallForm();
 
         if (!empty($lang)) {
@@ -49,21 +47,11 @@ class InstallController extends \yii\web\Controller
             $installMessages = $this->processMigrations();
             $this->initRbac($model);
 
-            $modules = Yii::$app->getModules();
-            $params = $model->getAttributes();
+            $messages = $this->callModulesMethod('migrateUp');
+            $installMessages .= implode('\n', $messages);
 
-            foreach ($modules as $moduleName => $module)
-            {
-                if (is_array($module))
-                {
-                    $module = Yii::$app->getModule($moduleName);
-                }
-
-                if (method_exists($module, 'migrateUp'))
-                {
-                    $installMessages .= $module->migrateUp($params);
-                }
-            }
+            $messages = $this->callModulesMethod('afterInstall');
+            $installMessages .= implode('\n', $messages);
 
             return $this->render('resume', [
                 'messages' => $installMessages
@@ -203,5 +191,32 @@ class InstallController extends \yii\web\Controller
             $auth->addChild($admin, $registered);
             $auth->assign($admin, $user->id);
         }
+    }
+
+
+    /**
+     * Call a method if exists on every application modules
+     *
+     * @param string $methodName The method to call
+     *
+     * @return mixed[]
+     */
+    protected function callModulesMethod($methodName)
+    {
+        $modules = Yii::$app->getModules();
+        $returns = [];
+
+        foreach ($modules as $moduleName => $module)
+        {
+            if (is_array($module)) {
+                $module = Yii::$app->getModule($moduleName);
+            }
+
+            if (method_exists($module, $methodName)) {
+                $returns[] = $module->$methodName();
+            }
+        }
+
+        return $returns;
     }
 }

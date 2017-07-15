@@ -96,6 +96,12 @@ class WebApplication extends \yii\web\Application
             if ($url != '/install') {
                 $this->getResponse()->redirect(['/install']);
             }
+
+            /* Now the route is install.
+             *
+             * Set the minimal layout to avoid potential db queries in the main layout
+             */
+            $this->layout = 'minimal';
         }
     }
 
