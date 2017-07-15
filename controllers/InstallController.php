@@ -175,10 +175,16 @@ class InstallController extends \yii\web\Controller
     {
         $auth = Yii::$app->authManager;
 
-        // Create the default assigned automatically to every registered users
-        $registered = new Role(['name' => 'registered', 'description' => Yii::t('colibri', 'Default role for registered users')]);
-        $auth->add($registered);
+        $rule = new \colibri\base\rbac\RegisteredRule();
+        $auth->add($rule);
 
+        // Create the default assigned automatically to every registered users
+        $registered = new Role([
+            'name' => 'registered',
+            'ruleName' => $rule->name,
+            'description' => Yii::t('colibri', 'Default role for registered users')]);
+
+        $auth->add($registered);
 
         // Create the application admin user
         $user = new \dektrium\user\models\User();
