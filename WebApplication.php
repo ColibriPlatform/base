@@ -157,7 +157,7 @@ class WebApplication extends \yii\web\Application
                 'class' => 'yii\caching\FileCache',
             ],
             'settings' => [
-                'class' => 'colibri\base\Settings'
+                'class' => 'pheme\settings\components\Settings'
             ],
             'authManager' => [
                 'class' => 'dektrium\rbac\components\DbManager',
