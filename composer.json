@@ -15,11 +15,11 @@
 	"require" : {
 		"php" : ">=5.4.0",
 		"m1/env" : "2.1.0",
-		"yiisoft/yii2" : "^2.0.13",
-		"yiisoft/yii2-bootstrap" : "^2.0.0",
-		"dektrium/yii2-user" : "0.9.13",
-		"dektrium/yii2-rbac" : "0.3.0",
-		"pheme/yii2-settings" : "0.5.0"
+		"yiisoft/yii2" : "^2.0",
+		"yiisoft/yii2-bootstrap" : "^2.0",
+		"dektrium/yii2-user" : "^0.9",
+		"dektrium/yii2-rbac" : "^0.3",
+		"pheme/yii2-settings" : "^0.5"
 	},
 	"autoload" : {
 		"psr-4" : {
