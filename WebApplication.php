@@ -41,7 +41,7 @@ class WebApplication extends \yii\web\Application
 
         if (!isset($config['modules']['rbac'])) {
             $config['modules']['rbac'] = [
-                'class' => 'dektrium\rbac\Module',
+                'class' => 'dektrium\rbac\RbacWebModule',
             ];
         }
 
